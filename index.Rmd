@@ -1,6 +1,6 @@
 --- 
-title: "YOUR TITLE HERE"
-author: "YOUR NAMES HERE"
+title: "Nursing Houses during the Pandemic"
+author: "Xingcheng Rong, Xinfu Su, Ling Sun"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 ---
