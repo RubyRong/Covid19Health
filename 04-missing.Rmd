@@ -1,1 +1,132 @@
 # Missing values
+
+---
+title: "missing-value"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Cmd+Shift+Enter*. 
+
+```{r}
+library(tidyverse)
+library(patchwork)
+library(ggplot2)
+
+missing_plot <- function(count_or_perc, dataset){
+  mycars<-dataset
+  colnames(mycars) <- abbreviate(names(mycars), minlength=2)
+  missing_patterns <- data.frame(is.na(mycars)) %>%
+  group_by_all() %>%
+  count(name = "count", sort = TRUE) %>%
+  ungroup()
+
+  if (nrow(missing_patterns)>1){
+  new_patterns <- data.frame(sapply(missing_patterns, as.character))
+  new_patterns[new_patterns == 'TRUE'] <- 1
+  new_patterns[new_patterns == 'FALSE'] <- 0
+  new_patterns <- data.frame(sapply(new_patterns, as.numeric))
+}else{
+  new_patterns <- data.frame(t(sapply(missing_patterns, as.character)))
+  new_patterns[new_patterns == 'TRUE'] <- 1
+  new_patterns[new_patterns == 'FALSE'] <- 0
+  new_patterns <- data.frame(t(sapply(new_patterns, as.numeric)))
+  }
+  
+  #top plot
+  num_rows_missing <- c()
+  for (i in 1:(ncol(new_patterns)-1)) {
+    num_rows_missing[i] <- sum(new_patterns[,i]*new_patterns[,'count'])
+  }
+  top_data <- data.frame(
+    columns = colnames(new_patterns)[1:(ncol(new_patterns)-1)],  
+    num_rows_missing = num_rows_missing[1:(ncol(new_patterns)-1)]
+    )
+  top_data <- top_data[order(-1*num_rows_missing), ]
+  column_order <- top_data$columns #to help main plot
+  top_data$columns <- factor(top_data$columns, levels = top_data$columns)
+  top_plot <- ggplot(top_data, aes(x=columns, y=num_rows_missing)) + 
+    geom_bar(stat = "identity", fill = 'lightblue') +
+    labs(x="varaible", y="num rows missing") + theme(legend.position = "none", axis.text.x = element_text(angle = 45, hjust = 1)) +
+    ggtitle("Missing Value Patterns")
+  
+  #main data, to help right plot
+  top_data2 <- top_data[order(-1*num_rows_missing), ]
+  main_data <- new_patterns[, 1:(ncol(new_patterns)-1)]
+  complete_case <- NULL
+  for (i in 1:nrow(main_data)) {
+    if (all(main_data[i,]==0)){
+      main_data[i,]<-'complete'
+      complete_case <- i
+    }
+  }
+  
+  #right plot
+  if (count_or_perc == 'count'){
+    right_data <- data.frame(
+    patterns = c(1:nrow(new_patterns)),  
+    row_count = new_patterns[, 'count']
+    )
+    right_data <- right_data %>%
+      add_column(ifcomplete='missing')
+    for (i in 1:nrow(main_data)) {
+      if (all(main_data[i,]=='complete')){
+        right_data[i,'ifcomplete']<-'complete'
+      }
+    }
+    right_plot <- ggplot(right_data, aes(x=reorder(patterns, -1*patterns), y=row_count, fill=ifcomplete)) + 
+      geom_bar(stat = "identity") +
+      scale_fill_manual(values=c('blue', 'lightblue')) +
+      labs(x="pattern", y="row_count") + theme(legend.position = "none", axis.text.x = element_text(angle = 45, hjust = 1)) +
+      coord_flip()
+  } else if (count_or_perc == 'percent') {
+     right_data <- data.frame(
+      patterns = c(1:nrow(new_patterns)),  
+      row_count = new_patterns[, 'count']/sum(new_patterns[, 'count'])
+    )
+    right_data <- right_data %>%
+      add_column(ifcomplete='missing')
+    for (i in 1:nrow(main_data)) {
+      if (all(main_data[i,]=='complete')){
+        right_data[i,'ifcomplete']<-'complete'
+      }
+    }
+    right_plot <- ggplot(right_data, aes(x=reorder(patterns, -1*patterns), y=row_count, fill=ifcomplete)) + 
+      geom_bar(stat = "identity") +
+      scale_fill_manual(values=c('blue', 'lightblue')) +
+      labs(x="pattern", y="row_count_percent") + theme(legend.position = "none", axis.text.x = element_text(angle = 45, hjust = 1)) +
+      coord_flip()
+  } else {print("input count or percent")}
+ 
+  #main plot
+  main_data <- data.frame(cbind(c(1:nrow(new_patterns)), main_data))
+  colnames(main_data)[1] <- "pattern"
+  main_data <- main_data %>%
+    pivot_longer(!pattern, names_to = "variable", values_to = "ifmissing")
+  main_data <- data.frame(sapply(main_data, as.character))
+  main_data$variable <- fct_relevel(main_data$variable, column_order)
+  main_data$pattern <- fct_relevel(main_data$pattern, as.character(c(1:nrow(new_patterns))))
+  
+  main_plot <- ggplot(main_data, aes(x=variable, y=pattern, fill=ifmissing))+
+    scale_y_discrete(limits = rev) +
+    scale_fill_manual(values = c('1'='purple', '0'='grey', 'complete'='darkgrey'))+
+    geom_tile(color = "white") +
+    theme(legend.position = "none", axis.text.x = element_text(angle = 45, hjust = 1)) +
+    labs(x='variable',y='pattern')
+  
+  #patchwork
+  x <- as.integer(ncol(mycars)/2)
+  y <- nrow(missing_patterns)-as.integer(complete_case)+1
+  main_plot <- main_plot + geom_text(aes(x,y,label='complete case'), size=4)
+
+  top_plot + plot_spacer() + main_plot + right_plot + 
+    plot_layout(ncol = 2, nrow = 2, widths = c(4, 1), heights = c(1, 4))
+}
+```
+
+
+```{r}
+nursing = read.csv("./nursinghouse_data.csv")
+missing_plot('count', nursing)
+```
