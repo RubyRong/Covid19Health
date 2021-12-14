@@ -1,9 +1,6 @@
 # Interactive component
 
 
-# Interactive component
-
-
 
 
 

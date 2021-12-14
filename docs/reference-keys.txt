@@ -9,3 +9,7 @@ overview-on-pandemic-situation-in-nursing-homes
 data-mining-for-influencial-factors
 data-evidence
 conclusion-1
+overview-on-pandemic-situation-in-nursing-homes-1
+data-mining-for-influencial-factors-1
+data-evidence-1
+interactive-component-1
