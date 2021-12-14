@@ -8,7 +8,7 @@ Xingcheng Rong, Xinfu Su, Ling Sun
 
 During the covid-19 pandemic, we need to pay more attention to the nursing house since they are filled with the olds who also belong to high-risk groups. The olds are more sensitive to the COVID-19 and have a higher rate of severe symptoms and deaths. Also, residents in nursing homes usually have some disabilities or other special care needs. The health conditions of staff who have close contact with them also matter.
 
-So in this project we want to acquire some meaningful insights such as the relationship between the state overall COVID-19 statistics and the statistics within nursing homes over time, the serioueness of the positive cases and deaths of residents and staff. We still want to explore more other factors influencing the health of residents and staffs, such as the vaccination rate, protection equipment. Therefore, we used R to visualize and analyze the relation and the impact of these factors according to the Nursing House dataset.
+So in this project we want to acquire some meaningful insights such as the relationship between the state overall COVID-19 statistics and the statistics within nursing homes over time, the severity of the positive cases and deaths of residents and staff. We still want to explore more other factors influencing the health of residents and staffs, such as the vaccination rate, protection equipment. Therefore, we used R to visualize and analyze the relation and the impact of these factors according to the Nursing House dataset.
 
 ## Data Sources
 
