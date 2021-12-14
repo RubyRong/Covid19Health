@@ -13,3 +13,4 @@ overview-on-pandemic-situation-in-nursing-homes-1
 data-mining-for-influencial-factors-1
 data-evidence-1
 interactive-component-1
+interactive-component-conclusion

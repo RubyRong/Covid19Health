@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 7 Interactive Component &amp; Conclusion | Pandemic Analysis on US Nursing Homes</title>
+  <meta name="description" content="Chapter 7 Interactive Component &amp; Conclusion | Pandemic Analysis on US Nursing Homes" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 7 Interactive Component &amp; Conclusion | Pandemic Analysis on US Nursing Homes" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 7 Interactive Component &amp; Conclusion | Pandemic Analysis on US Nursing Homes" />
+  
+  
+  
+
+<meta name="author" content="Xingcheng Rong, Xinfu Su, Ling Sun" />
+
+
+<meta name="date" content="2021-12-14" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="interactive-component.html"/>
+
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">nursing_house</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a></li>
+<li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a></li>
+<li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a></li>
+<li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a>
+<ul>
+<li class="chapter" data-level="5.0.1" data-path="results.html"><a href="results.html#overview-on-pandemic-situation-in-nursing-homes"><i class="fa fa-check"></i><b>5.0.1</b> Overview on Pandemic Situation in Nursing Homes</a></li>
+<li class="chapter" data-level="5.0.2" data-path="results.html"><a href="results.html#data-mining-for-influencial-factors"><i class="fa fa-check"></i><b>5.0.2</b> Data Mining for Influencial Factors</a></li>
+<li class="chapter" data-level="5.0.3" data-path="results.html"><a href="results.html#data-evidence"><i class="fa fa-check"></i><b>5.0.3</b> Data Evidence</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>6</b> Interactive component</a></li>
+<li class="chapter" data-level="7" data-path="interactive-component-conclusion.html"><a href="interactive-component-conclusion.html"><i class="fa fa-check"></i><b>7</b> Interactive Component &amp; Conclusion</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Pandemic Analysis on US Nursing Homes</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="interactive-component-conclusion" class="section level1" number="7">
+<h1><span class="header-section-number">Chapter 7</span> Interactive Component &amp; Conclusion</h1>
+<script src="https://d3js.org/d3.v4.js"></script>
+<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+<script src="https://github.com/PMSI-AlignAlytics/dimple/releases/download/2.3.0/dimple.v2.3.0.min.js"></script>
+<p><l1>*From the second graph, users are able to observe the trend of full vaccination rates of residents and staffs of nursing houses. It also shows the occupancy (how many percentage of beds has been occupied by residents). Users can hover on the line to check the specific rate at each date. </l1></p>
+<div id="chartContainer">
+
+</div>
+<script>
+      var svg = dimple.newSvg("#chartContainer", 600, 500);
+      d3.csv("https://raw.githubusercontent.com/RubyRong/Covid19Health/main/covid-inter.csv", function(error, data) {
+          if(error){ 
+              console.log(error); 
+          } 
+          var myChart = new dimple.chart(svg, data);
+          myChart.setBounds(60, 60, 505, 305);
+          var x = myChart.addCategoryAxis("x", "Date")
+          myChart.addMeasureAxis("y", "Rate(%)");
+          var lines = myChart.addSeries("Name", dimple.plot.line);
+          myChart.addLegend(60, 10, 500, 20, "right");
+          lines.lineWeight = 1;
+          myChart.draw();
+      }); 
+</script>
+<l2>*The combination of two graphs can help users understand the relationship between each factor and COVID-19 cases of nursing houses.One of the most significant takeaway from these interactive plots is that as the vaccination rate increases from the mid of 2021, the rapid growing trend starting from late 2020 has been slowed down.</l2>
+<div id="chartContainer">
+
+</div>
+<p>In summary, our research suggests a close relation between high vaccination rates and low COVID-19 confirmation rates, a counter-intuitive negative relationship between bed occupation rates and COVID-19 confirmation rates and weak impacts of sufficiency of resources and nursing staff at the current stage. We also provide further evidence or explanations to phenomena above.</p>
+<p>To expand this research, in addition to research on the elderly in nursing homes, attentions can be payed on children in kindergartens and schools, because children can be less aware of infectious diseases than adults and have weaker resistance to diseases. According to the current situation, covid will not stop soon. As time progresses, new factors may arise. We should also keep learning and exploring to discover more new information to help reduce the rate of covid infection.</p>
+<p>From the perspective data science experience, we have learned that data is helpful for providing insights and evidence, but it is important to reflect on reality or resort to scientific experiments before coming to conclusions.</p>
+<p>References</p>
+<ol style="list-style-type: decimal">
+<li><p>Williams, CS, Zheng, Q, White, AJ, et al. The association of nursing home quality ratings and spread of COVID-19. J Am Geriatr Soc. 2021; 69( 8): 2070– 2078. <a href="https://doi.org/10.1111/jgs.17309" class="uri">https://doi.org/10.1111/jgs.17309</a></p></li>
+<li><p>State COVID-19 Data and Policy Actions, KFF, accessed Dec 8, 2021, <a href="https://www.kff.org/coronavirus-covid-19/issue-brief/state-covid-19-data-and-policy-actions/" class="uri">https://www.kff.org/coronavirus-covid-19/issue-brief/state-covid-19-data-and-policy-actions/</a></p></li>
+<li><p>COVID-19 Nursing Home Data, The Centers for Medicare &amp; Medicaid Services, accessed Dec 5, 2021, <a href="https://data.cms.gov/covid-19/covid-19-nursing-home-data" class="uri">https://data.cms.gov/covid-19/covid-19-nursing-home-data</a></p></li>
+<li><p>Five-Star Quality Rating System, The Centers for Medicare &amp; Medicaid Services, accessed Dec 5, 2021, <a href="https://www.cms.gov/Medicare/Provider-Enrollment-and-Certification/CertificationandComplianc/FSQRS" class="uri">https://www.cms.gov/Medicare/Provider-Enrollment-and-Certification/CertificationandComplianc/FSQRS</a></p></li>
+<li><p>Medicare COVID-19 Cases &amp; Hospitalizations, The Centers for Medicare &amp; Medicaid Services, accessed Dec 5, 2021, <a href="https://data.cms.gov/covid-19/medicare-covid-19-cases-hospitalizations" class="uri">https://data.cms.gov/covid-19/medicare-covid-19-cases-hospitalizations</a></p></li>
+<li><p>Provider Information, The Centers for Medicare &amp; Medicaid Services, accessed Dec 5, 2021, <a href="https://data.cms.gov/provider-data/dataset/4pq5-n9py" class="uri">https://data.cms.gov/provider-data/dataset/4pq5-n9py</a></p></li>
+</ol>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="interactive-component.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/RubyRong/Covid19Health/edit/main/07-conclusion.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/RubyRong/Covid19Health/blob/main/07-conclusion.Rmd",
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

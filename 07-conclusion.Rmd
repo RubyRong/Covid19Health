@@ -1,4 +1,29 @@
-# Conclusion
+# Interactive Component & Conclusion
+<script src="https://d3js.org/d3.v4.js"></script>
+<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+<script src="https://github.com/PMSI-AlignAlytics/dimple/releases/download/2.3.0/dimple.v2.3.0.min.js"></script>
+<l1>*From the second graph, users are able to observe the trend of full vaccination rates of residents and staffs of nursing houses. It also shows the occupancy (how many percentage of beds has been occupied by residents). Users can hover on the line to check the specific rate at each date. </l1>
+
+<div id="chartContainer"></div>
+<script>
+      var svg = dimple.newSvg("#chartContainer", 600, 500);
+      d3.csv("https://raw.githubusercontent.com/RubyRong/Covid19Health/main/covid-inter.csv", function(error, data) {
+          if(error){ 
+              console.log(error); 
+          } 
+          var myChart = new dimple.chart(svg, data);
+          myChart.setBounds(60, 60, 505, 305);
+          var x = myChart.addCategoryAxis("x", "Date")
+          myChart.addMeasureAxis("y", "Rate(%)");
+          var lines = myChart.addSeries("Name", dimple.plot.line);
+          myChart.addLegend(60, 10, 500, 20, "right");
+          lines.lineWeight = 1;
+          myChart.draw();
+      }); 
+</script>
+<l2>*The combination of two graphs can help users understand the relationship between each factor and COVID-19 cases of nursing houses.One of the most significant takeaway from these interactive plots is that as the vaccination rate increases from the mid of 2021, the rapid growing trend starting from late 2020 has been slowed down.</l2>
+<div id="chartContainer"></div>
+
 
 In summary, our research suggests a close relation between high vaccination rates and low COVID-19 confirmation rates, a counter-intuitive negative relationship between bed occupation rates and COVID-19 confirmation rates and weak impacts of sufficiency of resources and nursing staff at the current stage. We also provide further evidence or explanations to phenomena above.
 
