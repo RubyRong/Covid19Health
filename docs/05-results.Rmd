@@ -1,0 +1,270 @@
+# Results
+
+```{r setup, include=FALSE}
+# this prevents package loading message from appearing in the rendered version of your problem set
+knitr::opts_chunk$set(warning = FALSE, message = FALSE)
+```
+
+```{R,echo=FALSE}
+library(dplyr)
+library(ggplot2)
+library(maps)
+library(tidyverse)
+library(readr)
+library(ggplot2)
+library(vcd)
+library(ggridges)
+library(viridis)
+library(hrbrthemes)
+
+nursing = read.csv("new_nursing_v2.csv")
+group_total <- nursing %>% group_by(Week.Ending) %>% summarise(confirmed = sum(Residents.Total.Confirmed.COVID.19,na.rm = TRUE), death = sum(Residents.Total.COVID.19.Deaths,na.rm = TRUE), bed_rate = sum(Total.Number.of.Occupied.Beds, na.rm = TRUE)/sum(Number.of.All.Beds, na.rm = TRUE), staff_confirmed = sum(Staff.Total.Confirmed.COVID.19, na.rm = TRUE), staff_vaccination = mean(Percentage.of.Current.Healthcare.Personnel.who.Received.a.Completed.COVID.19.Vaccination.at.Any.Time, na.rm=TRUE),resident_vaccination = mean(Percentage.of.Current.Residents.who.Received.a.Completed.COVID.19.Vaccination.at.Any.Time, na.rm=TRUE), weekly_increase = sum(Residents.Weekly.Admissions.COVID.19, na.rm = TRUE)) %>% ungroup()
+```
+
+```{R,echo=FALSE}
+### data processing for times series
+### Note: 
+### ggbiplot disables dplyr
+### any data processing should be done before that
+
+data <- read.csv("COVID_19_Nursing_Home_Data_time_series.csv")
+
+df <- subset(data, select = c("Week.Ending", "Any.Current.Supply.of.N95.Masks","Any.Current.Supply.of.Surgical.Masks", "Any.Current.Supply.of.Eye.Protection", "Any.Current.Supply.of.Hand.Sanitizer"))
+
+df <- mutate_all(df, list(~na_if(.,"")))
+df <- na.omit(df)
+df[df=='Y']<-1
+df[df=='N']<-0
+df <- transform(df, Any.Current.Supply.of.N95.Masks = as.numeric(Any.Current.Supply.of.N95.Masks), 
+                    Any.Current.Supply.of.Surgical.Masks = as.numeric(Any.Current.Supply.of.Surgical.Masks),
+                    Any.Current.Supply.of.Hand.Sanitizer = as.numeric(Any.Current.Supply.of.Hand.Sanitizer), 
+                    Any.Current.Supply.of.Eye.Protection = as.numeric(Any.Current.Supply.of.Eye.Protection))
+
+covid_case <- df %>%
+  group_by(Week.Ending) %>%
+  summarise(N95mask = mean(Any.Current.Supply.of.N95.Masks, na.rm = TRUE),
+            SurgicalMasks = mean(Any.Current.Supply.of.Surgical.Masks, na.rm = TRUE),
+            EyeProtection = mean(Any.Current.Supply.of.Eye.Protection, na.rm = TRUE),
+            HandSanitizer = mean(Any.Current.Supply.of.Hand.Sanitizer, na.rm = TRUE))
+```
+
+```{R,echo=FALSE}
+select = read.csv('select_data.csv')
+mask <- select %>% group_by(Week.Ending, Any.Current.Supply.of.N95.Masks) %>% count() %>% ungroup()
+s_mask <- select %>% group_by(Week.Ending, Any.Current.Supply.of.Surgical.Masks) %>% count() %>% ungroup()
+eye <- select %>% group_by(Week.Ending, Any.Current.Supply.of.Eye.Protection) %>% count() %>% ungroup()
+hand <- select %>% group_by(Week.Ending, Any.Current.Supply.of.Hand.Sanitizer) %>% count() %>% ungroup()
+mask = mask[1:18,]
+s_mask = s_mask[1:18,]
+eye = eye[1:18,]
+hand = hand[1:18,]
+mask[mask==''] <-'No Report'
+s_mask[s_mask==''] <-'No Report'
+eye[eye==''] <-'No Report'
+hand[hand==''] <-'No Report'
+mask[mask=='Y'] <-'Sufficient'
+s_mask[s_mask=='Y'] <-'Sufficient'
+eye[eye=='Y'] <-'Sufficient'
+hand[hand=='Y'] <-'Sufficient'
+mask[mask=='N'] <-'Shortage'
+s_mask[s_mask=='N'] <-'Shortage'
+eye[eye=='N'] <-'Shortage'
+hand[hand=='N'] <-'Shortage'
+```
+
+### Overview on Pandemic Situation in Nursing Homes
+
+```{R,fig.width=10,fig.height=6,echo=FALSE}
+map_cases <- read.csv("map_data.csv")
+
+us_states <- map_data("state")
+
+centroid <- us_states %>%
+  group_by(region) %>%
+  summarise(long = mean(long),lat = mean(lat), group=mean(group))
+map_cases2 <- merge(centroid,map_cases,by.x='region',by.y="state_name")
+us_states2 <- merge(us_states, map_cases,by.x='region',by.y="state_name")
+
+ggplot(data = us_states, mapping = aes(x = long, y = lat, group = group)) +
+  geom_polygon(fill = "white", color = "darkgrey") +
+  
+  geom_crossbar(data = map_cases2, mapping = aes(x=long, ymin=lat, ymax=lat+total.confirmed.state.per1000/100), width=0.3,color="#00BFC4",fill = "#00BFC4") +
+  geom_crossbar(data = map_cases2, mapping = aes(x=long+0.4, ymin=lat, ymax=lat+total.confirmed.NHresident.per1000/100), width=0.3,color="#F8766D",fill="#F8766D") +
+  
+  geom_text(data = map_cases2, mapping = aes(x=long+0.1, y=lat-0.5, label = state),size = 3) +
+  
+  labs(x="longitude", y="latitude") +
+  ggtitle("Map visualization for cumulative COVID-19 NH confirmed rates and overall confirmed rates by state") +
+  theme(plot.title = element_text(hjust = 0.5, size=12),legend.position="bottom")
+```
+
+Note: Red bars represent positive rates (per 1000) within nursing home (abbreviated as NH) residents and blue bars represent state overall positive rates (per 1000).
+
+Previous research suggests that the cumulative COVID-19 positive rate within nursing homes across the US has reached 550 per 1000 residents (Williams, et al, 2021), which is more than 4 times of the overall positive rate of 82 per 1000 people in the US, according to KFF statistics (2021). This is a worrying issue. To further investigate whether positive rates within nursing homes have regional disparities, we took advantages of our datasets and added faceted results by state to previous research. This map visualization suggests that positive rates within nursing homes exceeds overall confirmed rates by far in every state with no exception.
+
+```{R,fig.width=6,fig.height=4,echo=FALSE}
+ggplot(map_cases, aes(x=total.confirmed.state.per1000, y=total.confirmed.NHresident.per1000)) +
+  geom_point() +
+  geom_smooth(method=lm, color = "#00BFC4") +
+  annotate("segment", x = 17, xend = 125, y = 10, yend = 125,color = "#F8766D", size = 1.05) +
+  annotate("text", x = 115, y = 620, label = "y=4.381+223.657", color = "#00BFC4") + 
+  annotate("text", x = 115, y = 90, label = "y=x", color = "#F8766D") + 
+  ggtitle("Quantitative Relationship between cumulative COVID-19 NH confirmed rates and overall confirmed rates by state") +
+  theme(plot.title = element_text(hjust = 0.5, size=8))
+#summary(m1 <- lm(total.confirmed.NHresident.per1000 ~ total.confirmed.state.per1000, map_cases))
+```
+
+This regression plot adds on to our research by quantifying the comparison between positive rates within nursing homes and those across the states. From the slope of the regression line, positive rates within nursing homes are about 4.38 times as much as those across the states.
+
+### Data Mining for Influencial Factors 
+
+```{R,fig.width=10,fig.height=6,echo=FALSE}
+#library(devtools)
+#install_github("vqv/ggbiplot")
+
+library(ggbiplot)
+#biplot_data <- read.csv("E:/university_resources/STAT 5702/final_proj/biplot_data.csv")
+biplot_data <- read.csv("biplot_data.csv")
+
+biplot_data2 <- biplot_data[complete.cases(biplot_data), ]
+biplot.pca <- prcomp(biplot_data2[,4:8], center = TRUE, scale=TRUE)
+p <- ggbiplot(biplot.pca,varname.size = 4,alpha=0.1,color='darkblue') +
+  xlim(-10, 10) +
+  ylim(-6, 6) +
+  geom_point(color='darkblue', size = 1) +
+  ggtitle("Biplot: Relationship between different factors and total confirmed NH residents") +
+  theme(plot.title = element_text(hjust = 0.5, size=12))
+p$layers <- c(p$layers[[2]], p$layers[[1]], p$layers[[3]])
+p
+```
+
+This biplot provides initial insights for further investigation into related or unrelated factors for positive rates within nursing homes. It is drawn using the most recent data points, as we would like to focus more on influential factors at the current stage. We assume that most factor names in this plot are self-explanatory. For those requiring explanations, 'Resourse.Supply' is a combined variable created by assigning a score to each NH based on the original data on the supply of N95mask, SurgicalMasks, EyeProtection and HandSanitizer. 'Nursing.Staff' represents sufficiency of nursing staff for each NH. 
+
+By looking at correlations between different factor dimensions and our response dimension - Confirmed.COVID.19.Per.1000 (within nursing homes), this biplot provides the following insights:
+
+1. At the current stage, vaccination rates have the strongest negative relationship with COVID-19 confirmation rates.
+
+2. Bed occupation rates are negatively related to COVID-19 confirmation rates, which may be counter-intuitive. Because an efficient way to avoid infecting COVID-19 is to decrease the interaction among people, which will decrease the spread of virus through breath or talking, we thought as occupancy rate decreases, the weekly increase cases will decrease along with it.
+
+3. Sufficiency of resources and nursing staff are slightly negative related to COVID-19 confirmation rates.
+
+### Data Evidence
+```{R,fig.width=12,fig.height=12,echo=FALSE}
+p1 <- ggplot(data = us_states2, mapping = aes(x = long, y = lat, group = group)) +
+  geom_polygon(aes(fill = -1*(total.confirmed.NHresident.per1000)), color = "darkgrey") +
+  scale_fill_continuous('total.confirmed.NHresident')+
+  
+  geom_text(data = map_cases2, mapping = aes(x=long+0.1, y=lat-0.5, label = state),size = 3) +
+  
+  labs(x="longitude", y="latitude") +
+  ggtitle("Map visualization for total confirmed NH residents by state") +
+  theme(plot.title = element_text(hjust = 0.5, size=12))
+
+p2 <- ggplot(data = us_states2, mapping = aes(x = long, y = lat, group = group)) +
+  geom_polygon(aes(fill = -1*(complete.vaccinated.NHresident.per1000)), color = "darkgrey") +
+  scale_fill_continuous('complete.vaccinated.NHresident')+
+  
+  geom_text(data = map_cases2, mapping = aes(x=long+0.1, y=lat-0.5, label = state),size = 3) +
+  
+  labs(x="longitude", y="latitude") +
+  ggtitle("Map visualization for complete vaccinated NH residents by state") +
+  theme(plot.title = element_text(hjust = 0.5, size=12))
+
+library(patchwork)
+p1 + p2 +
+    plot_layout(ncol = 1, nrow = 2, widths = c(2,2), heights = c(2,2))
+```
+
+We first look into the most related factor, vaccination rates. The above two map visualizations for confirmation rates and vaccination rates show right opposite color distributions. From the state level, higher vaccination rates are associated to lower confirmation rates. However, we here remind that our analysis reveals a universal phenomenon, while the efficiency of vaccinations is proven by scientific experiments. With the effort of scientists across the world, COVID-19 vaccination has become an efficient way to protect our health. 
+
+```{R,fig.width=10,fig.height=6,echo=FALSE}
+biplot.pca <- prcomp(biplot_data2[,c(4,5,6,7,8,12)], center = TRUE, scale=TRUE)
+rating <- biplot_data2[, 9]
+p <- ggbiplot(biplot.pca, obs.scale = 1, var.scale = 1,varname.size = 4,var.axes=T,alpha=0.2, groups=rating) +
+  scale_color_continuous(name = 'Overall Rating') + 
+  xlim(-10, 10) +
+  ylim(-5, 5) +
+  ggtitle("Biplot: Relationship between different factors, ratings and total confirmed NH residents") +
+  theme(plot.title = element_text(hjust = 0.5, size=12), legend.position="bottom")
+p$layers <- c(p$layers[[2]], p$layers[[1]], p$layers[[3]])
+p
+```
+
+For bed occupation rates, we assume that there could be underlying reasons that can explain this possibly counter-intuitive phenomenon at the current stage. By introducing an additional dataset on NH ratings, this new biplot shows that bed occupation rates are correlated with the overall ratings for nursing homes. People could be voting via their choices. Good nursing homes may also do better in epidemic prevention. Therefore, high bed occupation rates are not necessarily related to high COVID-19 confirmation rates and could possibly suggest the opposite way. From another perspective, it is important to do a comprehensive survey before choosing a nursing home.
+
+```{R,fig.width=10,fig.height=8,echo=FALSE}
+# bed rate for confirmed cases (time series)
+group_total[1,8] = 6000
+library(cowplot)
+iris1 <- ggplot(group_total, aes(x = Week.Ending)) +
+  geom_line(aes(y = bed_rate*100, group=1),size = 1, color = 'blue') +
+  labs(x="Date", y="Occupancy Rate (%)") +
+  ggtitle("Occupancy Rate v.s Time") +
+  theme_ipsum(axis_title_size = 15) + 
+  theme(legend.position="bottom", legend.text = element_text(size = 18), axis.text.x = element_text(angle = 45, size = 6), axis.text.y = element_text(size = 15), axis.title = element_text(size = 25))
+iris2 <- ggplot(group_total, aes(x = Week.Ending)) +
+  geom_line(aes(y = weekly_increase, group=1), size = 1,colour = 'red') +
+  labs(x="Date", y="Weekly Increase") +
+  ggtitle("Weekly Increase Cases v.s Time") +
+  theme_ipsum(axis_title_size = 15) + 
+  theme(legend.position="bottom", legend.text = element_text(size = 18), axis.text.x = element_text(angle = 45, size = 6), axis.text.y = element_text(size = 15), axis.title = element_text(size = 25))
+
+#plot_grid(iris1, iris2, labels = "AUTO")
+library(patchwork)
+iris1 + iris2 + 
+    plot_layout(ncol = 1, nrow = 2, widths = c(2,2), heights = c(4,4))
+```
+
+During the peak of the pandemic in 2020, the reason might again be different.  It probably because as the weekly increases cases and risk of the infection become larger and larger, more residents tend to leave nursing house and go back home for safety. And when weekly increases cases become smaller and the application of vaccines, most residents choose to return to nursing houses. That explains why when weekly increases cases reached its maximum on January 2021, the occupancy rate of nursing houses dropped to its minimum, when most residents have left.
+
+```{r,fig.width=10,fig.height=8,echo=FALSE}
+
+p1 <- ggplot(mask, aes(x=Week.Ending,y=n, fill=Any.Current.Supply.of.N95.Masks)) +
+  geom_bar(stat='identity') +
+  labs(x="Date", y="Nursing House Count")+
+  ggtitle('N95 Mask Supply')+
+  scale_fill_viridis(discrete = T) +
+  theme_ipsum(axis_title_size = 15) +
+  theme(legend.position="bottom", legend.title = element_blank(), legend.text = element_text(size = 15), axis.text.x = element_text(size = 15,angle = 45), axis.text.y = element_text(size = 15), axis.title = element_text(size = 25))
+
+p2 <- ggplot(s_mask, aes(x=Week.Ending,y=n, fill=Any.Current.Supply.of.Surgical.Masks)) +
+  geom_bar(stat='identity') +
+  labs(x="Date", y="Nursing House Count")+
+  ggtitle('Surgical Mask Supply')+
+  scale_fill_viridis(discrete = T, option = 'F') +
+  theme_ipsum(axis_title_size = 15) +
+  theme(legend.position="bottom", legend.title = element_blank(), legend.text = element_text(size = 15), axis.text.x = element_text(size = 15,angle = 45), axis.text.y = element_text(size = 15), axis.title = element_text(size = 25))
+
+p3 <-ggplot(eye, aes(x=Week.Ending,y=n, fill=Any.Current.Supply.of.Eye.Protection)) +
+  geom_bar(stat='identity') +
+  labs(x="Date", y="Nursing House Count")+
+  ggtitle('Eye Protection Supply')+
+  scale_fill_viridis(discrete = T, option = 'G') +
+  theme_ipsum(axis_title_size = 15) +
+  theme(legend.position="bottom", legend.title = element_blank(), legend.text = element_text(size = 15), axis.text.x = element_text(size = 15,angle = 45), axis.text.y = element_text(size = 15), axis.title = element_text(size = 25))
+
+p4 <- ggplot(hand, aes(x=Week.Ending,y=n, fill=Any.Current.Supply.of.Hand.Sanitizer)) +
+  geom_bar(stat='identity') +
+  labs(x="Date", y="Nursing House Count")+
+  ggtitle('Hand Sanitizer Supply')+
+  scale_fill_viridis(discrete = T, option = 'magma') +
+  theme_ipsum(axis_title_size = 15) +
+  theme(legend.position="bottom", legend.title = element_blank(), legend.text = element_text(size = 15), axis.text.x = element_text(size = 15,angle = 45), axis.text.y = element_text(size = 15), axis.title = element_text(size = 25))
+
+plot_grid(p1,p2,p3,p4, labels = "AUTO")
+```
+
+Next we will look at pandemic prevention equipment (PPE) supply in nursing houses across the U.S. These plots show a general view from six selected dates. On 2020-05-24, we can notice that greater ratios of nursing houses of the U.S had the shortages for all four types of PPE. On 2020-07-19, the shortage for hand sanitizers was firstly solved and after that, this ratio has been stay at a low level. However, shortage for surgical masks, N95 masks and eye protections lasted till 2020-12-20, when the ratio began decreasing to a relatively low value and the shortage for N95 masks is the most serious. It means these shortages lasted nearly for half a year, which corresponded to the increase of resident cases in the second half of 2020. Fortunately, the shortage ratios dropped to a satisfying level on 2021-02-28.
+
+```{R,fig.width=12,fig.height=6,echo=FALSE}
+ggplot(covid_case, aes(x=Week.Ending)) + 
+  geom_line(aes(y = N95mask, group=1, color="N95mask"),size=1) +
+  geom_line(aes(y = SurgicalMasks, group=1, color="SurgicalMasks"),size=1)+
+  geom_line(aes(y = EyeProtection, group=1, color="EyeProtection"),size=1) +
+  geom_line(aes(y = HandSanitizer, group=1, color="HandSanitizer"),size=1)+
+  labs(x="Date", y="Resourse.Supply") +
+  ggtitle("Time series for Resourse.Supply (Average on NHs)") +
+  theme(plot.title = element_text(hjust = 0.5, size=12),legend.position="bottom",axis.text.x = element_text(angle = 45))
+```
+
+From this times series plot, we can see it clearer that nursing homes have experienced greater resource shortages in the second half of 2020. However, As the manufacturing industry across the world has been back on track now, recent data points suggest that resource shortages are no longer a critical issue for nursing homes. Therefore, our data does not tell that resources are not important, but possibly as time changes, new issues become more influential. At the current stage, ensuring the implementation of epidemic prevention practices and making good use of resources could be issues that deserve more attention.
