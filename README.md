@@ -1,7 +1,24 @@
-This is a template for the EDAV final project. It is based on the template created with *File, New Project..., New Directory, Book Project using bookdown* in RStudio. 
+# Pandemic Analysis on US Nursing Homes
 
-## Data for Plot.Rmd Here
+Xingcheng Rong, Xinfu Su, Ling Sun
 
+2021-12-13
+
+## Description
+
+During the covid-19 pandemic, we need to pay more attention to the nursing house since they are filled with the olds who also belong to high-risk groups. The olds are more sensitive to the COVID-19 and have a higher rate of severe symptoms and deaths. Also, residents in nursing homes usually have some disabilities or other special care needs. The health conditions of staff who have close contact with them also matter.
+
+So in this project we want to acquire some meaningful insights such as the relationship between the state overall COVID-19 statistics and the statistics within nursing homes over time, the serioueness of the positive cases and deaths of residents and staff. We still want to explore more other factors influencing the health of residents and staffs, such as the vaccination rate, protection equipment. Therefore, we used R to visualize and analyze the relation and the impact of these factors according to the Nursing House dataset.
+
+## Data Sources
+
+COVID-19 Nursing Home Data, The Centers for Medicare & Medicaid Services, accessed Dec 5, 2021, https://data.cms.gov/covid-19/covid-19-nursing-home-data
+
+Medicare COVID-19 Cases & Hospitalizations, The Centers for Medicare & Medicaid Services, accessed Dec 5, 2021, https://data.cms.gov/covid-19/medicare-covid-19-cases-hospitalizations
+
+Provider Information, The Centers for Medicare & Medicaid Services, accessed Dec 5, 2021, https://data.cms.gov/provider-data/dataset/4pq5-n9py
+
+## Processed Data
 Map
 https://github.com/RubyRong/Covid19Health/blob/main/map_data.csv
 
@@ -9,66 +26,15 @@ Biplot
 https://github.com/RubyRong/Covid19Health/blob/main/biplot_data.csv
 
 Time series
+https://drive.google.com/file/d/1sFmayJHlw7qgnDeDdPQn67FMSHODU9nH/view?usp=sharing
+
+https://drive.google.com/file/d/1o0YAsLDDT9XaIRhKTMz-EHdi5U8y7Y9_/view?usp=sharing
+
 https://drive.google.com/file/d/1OdzVWpJjqV4kQaoxE2WTEsG0hy7ml00R/view?usp=sharing
 
-## ABSOLUTE ESSENTIALS
 
-*If you have any difficulties or have feedback of any kind, please file an issue.*
-
-### Copy this template
-
-- [ ] 1. Click the green "Use this template" button above.  DO NOT FORK THE REPO. Choose a descriptive name for your repo, such as "federalbudget" or "AIDSdeaths".  (If you change your mind before you do any work, delete your new repo and start over.)
-
-- [ ] 2. In the Description field, write: "Bookdown source files for EDAV final project".
-
-### Set up GitHub Pages	
-- [ ] 1. On the home page of your repo, click Settings. Scroll down to the GitHub pages section and change **Source** from **None** to **main**, change **/ (root)** to **/docs** folder, and click Save. Above the **Source** line, a bar will appear with your book's URL. The bar will initially be blue and indicate that your book is *ready* to be published and will change to green once it is published. Copy the URL. (Note that sometimes there is a delay until your book actually appears at that URL. If it doesn't appear after a few minutes, make a change and commit it to trigger a GitHub Pages build.)	
-
-- [ ] 2. Click the gear button near "About" on the home page of the repo and paste your book URL into the **Website** field that appears on the right.
-
-### Clone the repo
-
-- [ ] 1. Clone your new repo with *File, New Project..., Version Control, Git* in RStudio.
-
-### Edit some key files
-
-- [ ] 1. In `index.Rmd`, change YOUR TITLE HERE to your title.
-
-- [ ] 2. In `index.Rmd`, change YOUR NAMES HERE to your names.
-
-- [ ] 3. In `_bookdown.yml`, change YOUR GITHUB USERNAME to your GitHub username in the two places it appears.
-
-- [ ] 4. In `_bookdown.yml`, change YOUR GITHUB REPO to your GitHub repo name in the two places it appears.
-
-(Note that 3. and 4. provide links to the `.Rmd` files of your project for editing and viewing. If you move your `.Rmd` files you will need to update these file paths. Once your book is rendered, test that the edit (pen) and view (eye) buttons work.)
-
-- [ ] 5. In `_output.yml`, change YOUR SHORT TITLE to a shortened version of your title. (Leave the "after:" line indicating that the book was published with bookdown as is.)
-
-### Render the book
-
-- [ ] 1. Install **bookdown** with `install.packages("bookdown")`. If you already have it, update to the most recent version.
-
-- [ ] 2. Render locally with `bookdown::render_book("index.Rmd")` or clicking the *Build book* button which should appear in the Build tab (in the same pane as Environment, History, Connections, ...).
-
-- [ ] 3. Use `browseURL("docs/index.html")` to view your book locally (or just open `index.html` in a browser).
-
-- [ ] 4. If it looks good, commit and push all changed files to GitHub. 
-
-(You will need to repeat steps 2 and 4 every time you wish to update the book online.)
-
-### Edit README	
-
-Once you've completed these steps, delete the content of this **README** and add a short description of your project with a link to the book URL. It would be appreciated if you add the following to the end:	
 
 *This repo was initially generated from a bookdown template available here: https://github.com/jtr13/EDAVtemplate.*	
-
-### Demo Video	
-
-A demo video showing how to create a **bookdown book** following these similar instructions: http://bit.ly/fiveminutebookdown Note that this video uses a different template.
-
-### Additional features	
-
-Please consult the official guide to **bookdown**: https://bookdown.org/yihui/bookdown
 
 
 
