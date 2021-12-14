@@ -1,1 +1,13 @@
 # Data transformation
+
+[data processing for 'new_nursing.csv' here]
+
+We further pocessed our datasets for different plots. It consists of the following components:
+
+1. Time series data: selecting relevant columns from the original 'COVID_19_Nursing_Home_Data_11_28_2021_.csv'
+
+2. Map data: aggregating statistics by mean for 'new_nursing.csv', 'Medicare_COVID_19_Cases_Hospitalizations_August_2021.csv' and 'NH_ProviderInfo_Sep2021.csv' and joining them together 
+
+3. Biplot data: creating variables 'Resourse.Supply' and 'Nursing.Staff' and selecting relevant columns from 'new_nursing.csv'
+
+Link to fully reproducible python scripts https://github.com/RubyRong/Covid19Health/blob/main/EDAV_proj.ipynb

@@ -1,2 +1,24 @@
 # Conclusion
 
+## Conclusion
+
+main results: In summary, our research suggests a close relation between high vaccination rates and low COVID-19 confirmation rates, a counter-intuitive negative relationship between bed occupation rates and COVID-19 confirmation rates and weak impacts of sufficiency of resources and nursing staff at the current stage. We also provide further evidence or explanations to phenomena above.
+
+limitations: 
+
+future directions: To expand this research, we propose the following aspects: 
+
+lessons learned: From the perspective data science experience, we have learned that data is helpful for providing insights and evidence, but it is important to reflect on reality or resort to scientific experiments before coming to conclusions. 
+
+
+References
+
+1. Williams, CS, Zheng, Q, White, AJ, et al. The association of nursing home quality ratings and spread of COVID-19. J Am Geriatr Soc. 2021; 69( 8): 2070– 2078. https://doi.org/10.1111/jgs.17309
+
+2. State COVID-19 Data and Policy Actions, KFF, accessed Dec 8, 2021, https://www.kff.org/coronavirus-covid-19/issue-brief/state-covid-19-data-and-policy-actions/
+
+3. COVID-19 Nursing Home Data, The Centers for Medicare & Medicaid Services, acessed Dec 5, 2021, https://data.cms.gov/covid-19/covid-19-nursing-home-data
+
+4. Medicare COVID-19 Cases & Hospitalizations, The Centers for Medicare & Medicaid Services, acessed Dec 5, 2021, https://data.cms.gov/covid-19/medicare-covid-19-cases-hospitalizations
+
+5. Provider Information, The Centers for Medicare & Medicaid Services, acessed Dec 5, 2021, https://data.cms.gov/provider-data/dataset/4pq5-n9py

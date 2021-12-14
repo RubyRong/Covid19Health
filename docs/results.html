@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 5 Results | YOUR TITLE HERE</title>
-  <meta name="description" content="Chapter 5 Results | YOUR TITLE HERE" />
-  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+  <title>Chapter 5 Results | Nursing Houses during the Pandemic</title>
+  <meta name="description" content="Chapter 5 Results | Nursing Houses during the Pandemic" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 5 Results | YOUR TITLE HERE" />
+  <meta property="og:title" content="Chapter 5 Results | Nursing Houses during the Pandemic" />
   <meta property="og:type" content="book" />
   
   
@@ -16,15 +16,15 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 5 Results | YOUR TITLE HERE" />
+  <meta name="twitter:title" content="Chapter 5 Results | Nursing Houses during the Pandemic" />
   
   
   
 
-<meta name="author" content="YOUR NAMES HERE" />
+<meta name="author" content="Xingcheng Rong, Xinfu Su, Ling Sun" />
 
 
-<meta name="date" content="2020-11-09" />
+<meta name="date" content="2021-12-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,8 +33,9 @@
   
 <link rel="prev" href="missing-values.html"/>
 <link rel="next" href="interactive-component.html"/>
-<script src="libs/header-attrs-2.3/header-attrs.js"></script>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -50,8 +51,9 @@
 
 
 
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 
 
 
@@ -68,14 +70,19 @@
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">SHORT TITLE HERE</a></li>
+<li><a href="./">nursing_house</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
 <li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a></li>
 <li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a></li>
 <li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a></li>
-<li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a></li>
+<li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a>
+<ul>
+<li class="chapter" data-level="5.0.1" data-path="results.html"><a href="results.html#overview-on-pandemic-situation-in-nursing-homes"><i class="fa fa-check"></i><b>5.0.1</b> Overview on Pandemic Situation in Nursing Homes</a></li>
+<li class="chapter" data-level="5.0.2" data-path="results.html"><a href="results.html#data-mining-for-influencial-factors"><i class="fa fa-check"></i><b>5.0.2</b> Data Mining for Influencial Factors</a></li>
+<li class="chapter" data-level="5.0.3" data-path="results.html"><a href="results.html#data-evidence"><i class="fa fa-check"></i><b>5.0.3</b> Data Evidence</a></li>
+</ul></li>
 <li class="chapter" data-level="6" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>6</b> Interactive component</a></li>
 <li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a></li>
 <li class="divider"></li>
@@ -89,7 +96,7 @@
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">YOUR TITLE HERE</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Nursing Houses during the Pandemic</a>
           </h1>
         </div>
 
@@ -99,7 +106,37 @@
             <section class="normal" id="section-">
 <div id="results" class="section level1" number="5">
 <h1><span class="header-section-number">Chapter 5</span> Results</h1>
+<div id="overview-on-pandemic-situation-in-nursing-homes" class="section level3" number="5.0.1">
+<h3><span class="header-section-number">5.0.1</span> Overview on Pandemic Situation in Nursing Homes</h3>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-7-1.png" width="960" /></p>
+<p>Note: Red bars represent positive rates (per 1000) within nursing home (abbreviated as NH) residents and blue bars represent state overall positive rates (per 1000).</p>
+<p>Previous research suggests that the cumulative COVID-19 positive rate within nursing homes across the US has reached 550 per 1000 residents (Williams, et al, 2021), which is more than 4 times of the overall positive rate of 82 per 1000 people in the US, according to KFF statistics (2021). This is a worrying issue. To further investigate whether positive rates within nursing homes have regional disparities, we took advantages of our datasets and added faceted results by state to previous research. This map visualization suggests that positive rates within nursing homes exceeds overall confirmed rates by far in every state with no exception.</p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-8-1.png" width="576" /></p>
+<p>This regression plot adds on to our research by quantifying the comparison between positive rates within nursing homes and those across the states. From the slope of the regression line, positive rates within nursing homes are about 4.38 times as much as those across the states.</p>
+</div>
+<div id="data-mining-for-influencial-factors" class="section level3" number="5.0.2">
+<h3><span class="header-section-number">5.0.2</span> Data Mining for Influencial Factors</h3>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-9-1.png" width="960" /></p>
+<p>This biplot provides initial insights for further investigation into related or unrelated factors for positive rates within nursing homes. It is drawn using the most recent data points, as we would like to focus more on influential factors at the current stage. We assume that most factor names in this plot are self-explanatory. For those requiring explanations, ‘Resourse.Supply’ is a combined variable created by assigning a score to each NH based on the original data on the supply of N95mask, SurgicalMasks, EyeProtection and HandSanitizer. ‘Nursing.Staff’ represents sufficiency of nursing staff for each NH.</p>
+<p>By looking at correlations between different factor dimensions and our response dimension - Confirmed.COVID.19.Per.1000 (within nursing homes), this biplot provides the following insights:</p>
+<ol style="list-style-type: decimal">
+<li><p>At the current stage, vaccination rates have the strongest negative relationship with COVID-19 confirmation rates.</p></li>
+<li><p>Bed occupation rates are negatively related to COVID-19 confirmation rates, which may be counter-intuitive.</p></li>
+<li><p>Sufficiency of resources and nursing staff are slightly negative related to COVID-19 confirmation rates.</p></li>
+</ol>
+</div>
+<div id="data-evidence" class="section level3" number="5.0.3">
+<h3><span class="header-section-number">5.0.3</span> Data Evidence</h3>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-10-1.png" width="1152" /></p>
+<p>We first look into the most related factor, vaccination rates. The above two map visualizations for confirmation rates and vaccination rates show right opposite color distributions. From the state level, higher vaccination rates are associated to lower confirmation rates.</p>
+<p>[REGRESSION PLOT HERE]</p>
+<p>We further breaking down this analysis to the nursing home level. From this regression plot for 15 thousand nursing homes across the US, vaccination rates are strongly negatively related to confirmation rates. However, we here remind that our analysis reveals a universal phenomenon, while the efficiency of vaccinations is proven by scientific experiments. With the effort of scientists across the world, COVID-19 vaccination has become an efficient way to protect our health.</p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-11-1.png" width="960" /></p>
+<p>For bed occupation rates, we assume that there could be underlying reasons behind its relationship with COVID-19 confirmation rates. By introducing an additional dataset on NH ratings, this new biplot shows that bed occupation rates are correlated with the overall ratings for nursing homes. People could be voting via their choices. Good nursing homes may also do better in epidemic prevention. Therefore, high bed occupation rates are not necessarily related to high COVID-19 confirmation rates and could possibly suggest the opposite way. From another perspective, it is important to do a comprehensive survey before choosing a nursing home.</p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-12-1.png" width="1152" /></p>
+<p>From this times series plot, nursing homes have experienced greater resource shortages in the second half of 2020. As the manufacturing industry across the world has been back on track now, recent data points suggest that resource shortages are no longer a critical issue for nursing homes. Therefore, our data does not tell that resources are not important, but possibly as time changes, new issues become more influential. At the current stage, ensuring the implementation of epidemic prevention practices and making good use of resources could be issues that deserve more attention.</p>
 
+</div>
 </div>
             </section>
 
@@ -111,7 +148,6 @@
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -130,6 +166,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
@@ -138,7 +175,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/YOUR GITHUB USERNAME/YOUR REPO NAME/edit/main/05-results.Rmd",
+"link": "https://github.com/RubyRong/Covid19Health/edit/main/05-results.Rmd",
 "text": "Edit"
 },
 "history": {
@@ -146,10 +183,14 @@ gitbook.start({
 "text": null
 },
 "view": {
-"link": "https://github.com/YOUR GITHUB USERNAME/YOUR REPO NAME/blob/main/05-results.Rmd",
+"link": "https://github.com/RubyRong/Covid19Health/blob/main/05-results.Rmd",
 "text": null
 },
 "download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "subsection"
 }

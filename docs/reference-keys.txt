@@ -5,3 +5,7 @@ missing-values
 results
 interactive-component
 conclusion
+overview-on-pandemic-situation-in-nursing-homes
+data-mining-for-influencial-factors
+data-evidence
+conclusion-1
