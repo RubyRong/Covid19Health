@@ -10,6 +10,8 @@ During the covid-19 pandemic, we need to pay more attention to the nursing house
 
 So in this project we want to acquire some meaningful insights such as the relationship between the state overall COVID-19 statistics and the statistics within nursing homes over time, the severity of the positive cases and deaths of residents and staff. We still want to explore more other factors influencing the health of residents and staffs, such as the vaccination rate, protection equipment. Therefore, we used R to visualize and analyze the relation and the impact of these factors according to the Nursing House dataset.
 
+Link to this project https://rubyrong.github.io/Covid19Health/index.html
+
 ## Data Sources
 
 COVID-19 Nursing Home Data, The Centers for Medicare & Medicaid Services, accessed Dec 5, 2021, https://data.cms.gov/covid-19/covid-19-nursing-home-data
