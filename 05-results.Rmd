@@ -9,6 +9,16 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 library(dplyr)
 library(ggplot2)
 library(maps)
+library(tidyverse)
+library(readr)
+library(ggplot2)
+library(vcd)
+library(ggridges)
+library(viridis)
+library(hrbrthemes)
+
+nursing = read.csv("new_nursing_v2.csv")
+group_total <- nursing %>% group_by(Week.Ending) %>% summarise(confirmed = sum(Residents.Total.Confirmed.COVID.19,na.rm = TRUE), death = sum(Residents.Total.COVID.19.Deaths,na.rm = TRUE), bed_rate = sum(Total.Number.of.Occupied.Beds, na.rm = TRUE)/sum(Number.of.All.Beds, na.rm = TRUE), staff_confirmed = sum(Staff.Total.Confirmed.COVID.19, na.rm = TRUE), staff_vaccination = mean(Percentage.of.Current.Healthcare.Personnel.who.Received.a.Completed.COVID.19.Vaccination.at.Any.Time, na.rm=TRUE),resident_vaccination = mean(Percentage.of.Current.Residents.who.Received.a.Completed.COVID.19.Vaccination.at.Any.Time, na.rm=TRUE), weekly_increase = sum(Residents.Weekly.Admissions.COVID.19, na.rm = TRUE)) %>% ungroup()
 ```
 
 ```{R,echo=FALSE}
@@ -36,6 +46,30 @@ covid_case <- df %>%
             SurgicalMasks = mean(Any.Current.Supply.of.Surgical.Masks, na.rm = TRUE),
             EyeProtection = mean(Any.Current.Supply.of.Eye.Protection, na.rm = TRUE),
             HandSanitizer = mean(Any.Current.Supply.of.Hand.Sanitizer, na.rm = TRUE))
+```
+
+```{R,echo=FALSE}
+select = read.csv('select_data.csv')
+mask <- select %>% group_by(Week.Ending, Any.Current.Supply.of.N95.Masks) %>% count() %>% ungroup()
+s_mask <- select %>% group_by(Week.Ending, Any.Current.Supply.of.Surgical.Masks) %>% count() %>% ungroup()
+eye <- select %>% group_by(Week.Ending, Any.Current.Supply.of.Eye.Protection) %>% count() %>% ungroup()
+hand <- select %>% group_by(Week.Ending, Any.Current.Supply.of.Hand.Sanitizer) %>% count() %>% ungroup()
+mask = mask[1:18,]
+s_mask = s_mask[1:18,]
+eye = eye[1:18,]
+hand = hand[1:18,]
+mask[mask==''] <-'No Report'
+s_mask[s_mask==''] <-'No Report'
+eye[eye==''] <-'No Report'
+hand[hand==''] <-'No Report'
+mask[mask=='Y'] <-'Sufficient'
+s_mask[s_mask=='Y'] <-'Sufficient'
+eye[eye=='Y'] <-'Sufficient'
+hand[hand=='Y'] <-'Sufficient'
+mask[mask=='N'] <-'Shortage'
+s_mask[s_mask=='N'] <-'Shortage'
+eye[eye=='N'] <-'Shortage'
+hand[hand=='N'] <-'Shortage'
 ```
 
 ### Overview on Pandemic Situation in Nursing Homes
@@ -110,7 +144,7 @@ By looking at correlations between different factor dimensions and our response 
 
 1. At the current stage, vaccination rates have the strongest negative relationship with COVID-19 confirmation rates.
 
-2. Bed occupation rates are negatively related to COVID-19 confirmation rates, which may be counter-intuitive.
+2. Bed occupation rates are negatively related to COVID-19 confirmation rates, which may be counter-intuitive. Because an efficient way to avoid infecting COVID-19 is to decrease the interaction among people, which will decrease the spread of virus through breath or talking, we thought as occupancy rate decreases, the weekly increase cases will decrease along with it.
 
 3. Sufficiency of resources and nursing staff are slightly negative related to COVID-19 confirmation rates.
 
@@ -141,11 +175,7 @@ p1 + p2 +
     plot_layout(ncol = 1, nrow = 2, widths = c(2,2), heights = c(2,2))
 ```
 
-We first look into the most related factor, vaccination rates. The above two map visualizations for confirmation rates and vaccination rates show right opposite color distributions. From the state level, higher vaccination rates are associated to lower confirmation rates.
-
-[REGRESSION PLOT HERE]
-
-We further breaking down this analysis to the nursing home level. From this regression plot for 15 thousand nursing homes across the US, vaccination rates are strongly negatively related to confirmation rates. However, we here remind that our analysis reveals a universal phenomenon, while the efficiency of vaccinations is proven by scientific experiments. With the effort of scientists across the world, COVID-19 vaccination has become an efficient way to protect our health. 
+We first look into the most related factor, vaccination rates. The above two map visualizations for confirmation rates and vaccination rates show right opposite color distributions. From the state level, higher vaccination rates are associated to lower confirmation rates. However, we here remind that our analysis reveals a universal phenomenon, while the efficiency of vaccinations is proven by scientific experiments. With the effort of scientists across the world, COVID-19 vaccination has become an efficient way to protect our health. 
 
 ```{R,fig.width=10,fig.height=6,echo=FALSE}
 biplot.pca <- prcomp(biplot_data2[,c(4,5,6,7,8,12)], center = TRUE, scale=TRUE)
@@ -160,7 +190,67 @@ p$layers <- c(p$layers[[2]], p$layers[[1]], p$layers[[3]])
 p
 ```
 
-For bed occupation rates, we assume that there could be underlying reasons behind its relationship with COVID-19 confirmation rates. By introducing an additional dataset on NH ratings, this new biplot shows that bed occupation rates are correlated with the overall ratings for nursing homes. People could be voting via their choices. Good nursing homes may also do better in epidemic prevention. Therefore, high bed occupation rates are not necessarily related to high COVID-19 confirmation rates and could possibly suggest the opposite way. From another perspective, it is important to do a comprehensive survey before choosing a nursing home.
+For bed occupation rates, we assume that there could be underlying reasons that can explain this possibly counter-intuitive phenomon at the current stage. By introducing an additional dataset on NH ratings, this new biplot shows that bed occupation rates are correlated with the overall ratings for nursing homes. People could be voting via their choices. Good nursing homes may also do better in epidemic prevention. Therefore, high bed occupation rates are not necessarily related to high COVID-19 confirmation rates and could possibly suggest the opposite way. From another perspective, it is important to do a comprehensive survey before choosing a nursing home.
+
+```{R,fig.width=10,fig.height=4,echo=FALSE}
+# bed rate for confirmed cases (time series)
+group_total[1,8] = 6000
+library(cowplot)
+iris1 <- ggplot(group_total, aes(x = Week.Ending)) +
+  geom_line(aes(y = bed_rate*100, group=1),size = 1, color = 'blue') +
+  labs(x="Date", y="Occupancy Rate (%)") +
+  ggtitle("Occupancy Rate v.s Time") +
+  theme_ipsum(axis_title_size = 15) + 
+  theme(legend.position="bottom", legend.text = element_text(size = 18), axis.text.x = element_text(angle = 45, size = 6), axis.text.y = element_text(size = 15), axis.title = element_text(size = 25))
+iris2 <- ggplot(group_total, aes(x = Week.Ending)) +
+  geom_line(aes(y = weekly_increase, group=1), size = 1,colour = 'red') +
+  labs(x="Date", y="Weekly Increase") +
+  ggtitle("Weekly Increase Cases v.s Time") +
+  theme_ipsum(axis_title_size = 15) + 
+  theme(legend.position="bottom", legend.text = element_text(size = 18), axis.text.x = element_text(angle = 45, size = 6), axis.text.y = element_text(size = 15), axis.title = element_text(size = 25))
+plot_grid(iris1, iris2, labels = "AUTO")
+```
+
+During the peak of the pandemic in 2020, the reason might again be different.  It probably because as the weekly increases cases and risk of the infection become larger and larger, more residents tend to leave nursing house and go back home for safety. And when weekly increases cases become smaller and the application of vaccines, most residents choose to return to nursing houses. That explains why when weekly increases cases reached its maximum on January 2021, the occupancy rate of nursing houses dropped to its minimum, when most residents have left.
+
+```{r,fig.width=10,fig.height=8,echo=FALSE}
+
+p1 <- ggplot(mask, aes(x=Week.Ending,y=n, fill=Any.Current.Supply.of.N95.Masks)) +
+  geom_bar(stat='identity') +
+  labs(x="Date", y="Nursing House Count")+
+  ggtitle('N95 Mask Supply')+
+  scale_fill_viridis(discrete = T) +
+  theme_ipsum(axis_title_size = 15) +
+  theme(legend.position="bottom", legend.title = element_blank(), legend.text = element_text(size = 15), axis.text.x = element_text(size = 15,angle = 45), axis.text.y = element_text(size = 15), axis.title = element_text(size = 25))
+
+p2 <- ggplot(s_mask, aes(x=Week.Ending,y=n, fill=Any.Current.Supply.of.Surgical.Masks)) +
+  geom_bar(stat='identity') +
+  labs(x="Date", y="Nursing House Count")+
+  ggtitle('Surgical Mask Supply')+
+  scale_fill_viridis(discrete = T, option = 'F') +
+  theme_ipsum(axis_title_size = 15) +
+  theme(legend.position="bottom", legend.title = element_blank(), legend.text = element_text(size = 15), axis.text.x = element_text(size = 15,angle = 45), axis.text.y = element_text(size = 15), axis.title = element_text(size = 25))
+
+p3 <-ggplot(eye, aes(x=Week.Ending,y=n, fill=Any.Current.Supply.of.Eye.Protection)) +
+  geom_bar(stat='identity') +
+  labs(x="Date", y="Nursing House Count")+
+  ggtitle('Eye Protection Supply')+
+  scale_fill_viridis(discrete = T, option = 'G') +
+  theme_ipsum(axis_title_size = 15) +
+  theme(legend.position="bottom", legend.title = element_blank(), legend.text = element_text(size = 15), axis.text.x = element_text(size = 15,angle = 45), axis.text.y = element_text(size = 15), axis.title = element_text(size = 25))
+
+p4 <- ggplot(hand, aes(x=Week.Ending,y=n, fill=Any.Current.Supply.of.Hand.Sanitizer)) +
+  geom_bar(stat='identity') +
+  labs(x="Date", y="Nursing House Count")+
+  ggtitle('Hand Sanitizer Supply')+
+  scale_fill_viridis(discrete = T, option = 'magma') +
+  theme_ipsum(axis_title_size = 15) +
+  theme(legend.position="bottom", legend.title = element_blank(), legend.text = element_text(size = 15), axis.text.x = element_text(size = 15,angle = 45), axis.text.y = element_text(size = 15), axis.title = element_text(size = 25))
+
+plot_grid(p1,p2,p3,p4, labels = "AUTO")
+```
+
+Here we could see the condition of PPE supply of nursing houses across the U.S. The data provides six dates when it did the survey about the PPE supply. On 2020-05-24, we can notice that a great ratio of nursing houses of the U.S had the shortages for all four types of PPE. On 2020-07-19, the shortage of hand sanitizers was firstly solved and after that, the ratio of nursing houses which have shortage of hand sanitizers was always at a low level. However, the shortages of the other three PPE were serious unlike the hand sanitizer. The shortage of surgerical masks and eye protections lasted till 2020-12-20, when the ratio had decreased to a relatively low value. It means that the shortage nearly lasted half a year, which explained the uncontrolled increase of resident cases happened in the second half of 2021. The most serious shortage was the shortage of N95 masks. The shortage ratio of the first four surveies was really high. The shortage ratio only dropped to a satisfying level on 2021-02-28, but still higher than the ratio of the other three types of PPE. 
 
 ```{R,fig.width=12,fig.height=6,echo=FALSE}
 ggplot(covid_case, aes(x=Week.Ending)) + 
@@ -173,4 +263,4 @@ ggplot(covid_case, aes(x=Week.Ending)) +
   theme(plot.title = element_text(hjust = 0.5, size=12),legend.position="bottom",axis.text.x = element_text(angle = 45))
 ```
 
-From this times series plot, nursing homes have experienced greater resource shortages in the second half of 2020. As the manufacturing industry across the world has been back on track now, recent data points suggest that resource shortages are no longer a critical issue for nursing homes. Therefore, our data does not tell that resources are not important, but possibly as time changes, new issues become more influential. At the current stage, ensuring the implementation of epidemic prevention practices and making good use of resources could be issues that deserve more attention.
+From this times series plot, we can see it clearer that nursing homes have experienced greater resource shortages in the second half of 2020. However, As the manufacturing industry across the world has been back on track now, recent data points suggest that resource shortages are no longer a critical issue for nursing homes. Therefore, our data does not tell that resources are not important, but possibly as time changes, new issues become more influential. At the current stage, ensuring the implementation of epidemic prevention practices and making good use of resources could be issues that deserve more attention.

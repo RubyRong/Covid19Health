@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 5 Results | Nursing Houses during the Pandemic</title>
-  <meta name="description" content="Chapter 5 Results | Nursing Houses during the Pandemic" />
+  <title>Chapter 5 Results | Pandemic Analysis on US Nursing Homes</title>
+  <meta name="description" content="Chapter 5 Results | Pandemic Analysis on US Nursing Homes" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 5 Results | Nursing Houses during the Pandemic" />
+  <meta property="og:title" content="Chapter 5 Results | Pandemic Analysis on US Nursing Homes" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 5 Results | Nursing Houses during the Pandemic" />
+  <meta name="twitter:title" content="Chapter 5 Results | Pandemic Analysis on US Nursing Homes" />
   
   
   
@@ -96,7 +96,7 @@
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Nursing Houses during the Pandemic</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Pandemic Analysis on US Nursing Homes</a>
           </h1>
         </div>
 
@@ -108,33 +108,35 @@
 <h1><span class="header-section-number">Chapter 5</span> Results</h1>
 <div id="overview-on-pandemic-situation-in-nursing-homes" class="section level3" number="5.0.1">
 <h3><span class="header-section-number">5.0.1</span> Overview on Pandemic Situation in Nursing Homes</h3>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-7-1.png" width="960" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-8-1.png" width="960" /></p>
 <p>Note: Red bars represent positive rates (per 1000) within nursing home (abbreviated as NH) residents and blue bars represent state overall positive rates (per 1000).</p>
 <p>Previous research suggests that the cumulative COVID-19 positive rate within nursing homes across the US has reached 550 per 1000 residents (Williams, et al, 2021), which is more than 4 times of the overall positive rate of 82 per 1000 people in the US, according to KFF statistics (2021). This is a worrying issue. To further investigate whether positive rates within nursing homes have regional disparities, we took advantages of our datasets and added faceted results by state to previous research. This map visualization suggests that positive rates within nursing homes exceeds overall confirmed rates by far in every state with no exception.</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-8-1.png" width="576" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-9-1.png" width="576" /></p>
 <p>This regression plot adds on to our research by quantifying the comparison between positive rates within nursing homes and those across the states. From the slope of the regression line, positive rates within nursing homes are about 4.38 times as much as those across the states.</p>
 </div>
 <div id="data-mining-for-influencial-factors" class="section level3" number="5.0.2">
 <h3><span class="header-section-number">5.0.2</span> Data Mining for Influencial Factors</h3>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-9-1.png" width="960" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-10-1.png" width="960" /></p>
 <p>This biplot provides initial insights for further investigation into related or unrelated factors for positive rates within nursing homes. It is drawn using the most recent data points, as we would like to focus more on influential factors at the current stage. We assume that most factor names in this plot are self-explanatory. For those requiring explanations, ‘Resourse.Supply’ is a combined variable created by assigning a score to each NH based on the original data on the supply of N95mask, SurgicalMasks, EyeProtection and HandSanitizer. ‘Nursing.Staff’ represents sufficiency of nursing staff for each NH.</p>
 <p>By looking at correlations between different factor dimensions and our response dimension - Confirmed.COVID.19.Per.1000 (within nursing homes), this biplot provides the following insights:</p>
 <ol style="list-style-type: decimal">
 <li><p>At the current stage, vaccination rates have the strongest negative relationship with COVID-19 confirmation rates.</p></li>
-<li><p>Bed occupation rates are negatively related to COVID-19 confirmation rates, which may be counter-intuitive.</p></li>
+<li><p>Bed occupation rates are negatively related to COVID-19 confirmation rates, which may be counter-intuitive. Because an efficient way to avoid infecting COVID-19 is to decrease the interaction among people, which will decrease the spread of virus through breath or talking, we thought as occupancy rate decreases, the weekly increase cases will decrease along with it.</p></li>
 <li><p>Sufficiency of resources and nursing staff are slightly negative related to COVID-19 confirmation rates.</p></li>
 </ol>
 </div>
 <div id="data-evidence" class="section level3" number="5.0.3">
 <h3><span class="header-section-number">5.0.3</span> Data Evidence</h3>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-10-1.png" width="1152" /></p>
-<p>We first look into the most related factor, vaccination rates. The above two map visualizations for confirmation rates and vaccination rates show right opposite color distributions. From the state level, higher vaccination rates are associated to lower confirmation rates.</p>
-<p>[REGRESSION PLOT HERE]</p>
-<p>We further breaking down this analysis to the nursing home level. From this regression plot for 15 thousand nursing homes across the US, vaccination rates are strongly negatively related to confirmation rates. However, we here remind that our analysis reveals a universal phenomenon, while the efficiency of vaccinations is proven by scientific experiments. With the effort of scientists across the world, COVID-19 vaccination has become an efficient way to protect our health.</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-11-1.png" width="960" /></p>
-<p>For bed occupation rates, we assume that there could be underlying reasons behind its relationship with COVID-19 confirmation rates. By introducing an additional dataset on NH ratings, this new biplot shows that bed occupation rates are correlated with the overall ratings for nursing homes. People could be voting via their choices. Good nursing homes may also do better in epidemic prevention. Therefore, high bed occupation rates are not necessarily related to high COVID-19 confirmation rates and could possibly suggest the opposite way. From another perspective, it is important to do a comprehensive survey before choosing a nursing home.</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-12-1.png" width="1152" /></p>
-<p>From this times series plot, nursing homes have experienced greater resource shortages in the second half of 2020. As the manufacturing industry across the world has been back on track now, recent data points suggest that resource shortages are no longer a critical issue for nursing homes. Therefore, our data does not tell that resources are not important, but possibly as time changes, new issues become more influential. At the current stage, ensuring the implementation of epidemic prevention practices and making good use of resources could be issues that deserve more attention.</p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-11-1.png" width="1152" /></p>
+<p>We first look into the most related factor, vaccination rates. The above two map visualizations for confirmation rates and vaccination rates show right opposite color distributions. From the state level, higher vaccination rates are associated to lower confirmation rates. However, we here remind that our analysis reveals a universal phenomenon, while the efficiency of vaccinations is proven by scientific experiments. With the effort of scientists across the world, COVID-19 vaccination has become an efficient way to protect our health.</p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-12-1.png" width="960" /></p>
+<p>For bed occupation rates, we assume that there could be underlying reasons that can explain this possibly counter-intuitive phenomon at the current stage. By introducing an additional dataset on NH ratings, this new biplot shows that bed occupation rates are correlated with the overall ratings for nursing homes. People could be voting via their choices. Good nursing homes may also do better in epidemic prevention. Therefore, high bed occupation rates are not necessarily related to high COVID-19 confirmation rates and could possibly suggest the opposite way. From another perspective, it is important to do a comprehensive survey before choosing a nursing home.</p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-13-1.png" width="960" /></p>
+<p>During the peak of the pandemic in 2020, the reason might again be different. It probably because as the weekly increases cases and risk of the infection become larger and larger, more residents tend to leave nursing house and go back home for safety. And when weekly increases cases become smaller and the application of vaccines, most residents choose to return to nursing houses. That explains why when weekly increases cases reached its maximum on January 2021, the occupancy rate of nursing houses dropped to its minimum, when most residents have left.</p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-14-1.png" width="960" /></p>
+<p>Here we could see the condition of PPE supply of nursing houses across the U.S. The data provides six dates when it did the survey about the PPE supply. On 2020-05-24, we can notice that a great ratio of nursing houses of the U.S had the shortages for all four types of PPE. On 2020-07-19, the shortage of hand sanitizers was firstly solved and after that, the ratio of nursing houses which have shortage of hand sanitizers was always at a low level. However, the shortages of the other three PPE were serious unlike the hand sanitizer. The shortage of surgerical masks and eye protections lasted till 2020-12-20, when the ratio had decreased to a relatively low value. It means that the shortage nearly lasted half a year, which explained the uncontrolled increase of resident cases happened in the second half of 2021. The most serious shortage was the shortage of N95 masks. The shortage ratio of the first four surveies was really high. The shortage ratio only dropped to a satisfying level on 2021-02-28, but still higher than the ratio of the other three types of PPE.</p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-15-1.png" width="1152" /></p>
+<p>From this times series plot, we can see it clearer that nursing homes have experienced greater resource shortages in the second half of 2020. However, As the manufacturing industry across the world has been back on track now, recent data points suggest that resource shortages are no longer a critical issue for nursing homes. Therefore, our data does not tell that resources are not important, but possibly as time changes, new issues become more influential. At the current stage, ensuring the implementation of epidemic prevention practices and making good use of resources could be issues that deserve more attention.</p>
 
 </div>
 </div>

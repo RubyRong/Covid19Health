@@ -1,8 +1,8 @@
 # Data transformation
 
-[data processing for 'new_nursing.csv' here]
+We first generate our preprocesses dataset 'new_nursing.csv', for detailed information please see the missing data part.
 
-We further pocessed our datasets for different plots. It consists of the following components:
+Then we further pocessed our datasets for different plots. It consists of the following components:
 
 1. Time series data: selecting relevant columns from the original 'COVID_19_Nursing_Home_Data_11_28_2021_.csv'
 

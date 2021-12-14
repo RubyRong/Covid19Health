@@ -1,14 +1,10 @@
 # Conclusion
 
-## Conclusion
+In summary, our research suggests a close relation between high vaccination rates and low COVID-19 confirmation rates, a counter-intuitive negative relationship between bed occupation rates and COVID-19 confirmation rates and weak impacts of sufficiency of resources and nursing staff at the current stage. We also provide further evidence or explanations to phenomena above.
 
-main results: In summary, our research suggests a close relation between high vaccination rates and low COVID-19 confirmation rates, a counter-intuitive negative relationship between bed occupation rates and COVID-19 confirmation rates and weak impacts of sufficiency of resources and nursing staff at the current stage. We also provide further evidence or explanations to phenomena above.
+To expand this research, in addition to research on the elderly in nursing homes, attentions can be payed on children in kindergartens and schools, because children can be less aware of infectious diseases than adults and have weaker resistance to diseases. According to the current situation, covid will not stop soon. As time progresses, new factors may arise. We should also keep learning and exploring to discover more new information to help reduce the rate of covid infection. 
 
-limitations: 
-
-future directions: To expand this research, we propose the following aspects: 
-
-lessons learned: From the perspective data science experience, we have learned that data is helpful for providing insights and evidence, but it is important to reflect on reality or resort to scientific experiments before coming to conclusions. 
+From the perspective data science experience, we have learned that data is helpful for providing insights and evidence, but it is important to reflect on reality or resort to scientific experiments before coming to conclusions. 
 
 
 References
@@ -17,8 +13,10 @@ References
 
 2. State COVID-19 Data and Policy Actions, KFF, accessed Dec 8, 2021, https://www.kff.org/coronavirus-covid-19/issue-brief/state-covid-19-data-and-policy-actions/
 
-3. COVID-19 Nursing Home Data, The Centers for Medicare & Medicaid Services, acessed Dec 5, 2021, https://data.cms.gov/covid-19/covid-19-nursing-home-data
+3. COVID-19 Nursing Home Data, The Centers for Medicare & Medicaid Services, accessed Dec 5, 2021, https://data.cms.gov/covid-19/covid-19-nursing-home-data
 
-4. Medicare COVID-19 Cases & Hospitalizations, The Centers for Medicare & Medicaid Services, acessed Dec 5, 2021, https://data.cms.gov/covid-19/medicare-covid-19-cases-hospitalizations
+4. Five-Star Quality Rating System, The Centers for Medicare & Medicaid Services, accessed Dec 5, 2021, https://www.cms.gov/Medicare/Provider-Enrollment-and-Certification/CertificationandComplianc/FSQRS
 
-5. Provider Information, The Centers for Medicare & Medicaid Services, acessed Dec 5, 2021, https://data.cms.gov/provider-data/dataset/4pq5-n9py
+5. Medicare COVID-19 Cases & Hospitalizations, The Centers for Medicare & Medicaid Services, accessed Dec 5, 2021, https://data.cms.gov/covid-19/medicare-covid-19-cases-hospitalizations
+
+6. Provider Information, The Centers for Medicare & Medicaid Services, accessed Dec 5, 2021, https://data.cms.gov/provider-data/dataset/4pq5-n9py
