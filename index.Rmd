@@ -7,13 +7,6 @@ site: bookdown::bookdown_site
 
 # Introduction
 
-During the covid-19 pandemic, we need to pay more attention to the nursing house since they are filled with the olds who also belong to high-risk groups. They are more sensitive to the COVID-19 and have a higher rate of severe symptoms and deaths. Also, residents in nursing homes are usually with disabilities or other special care needs. The health conditions of staff who have close contact with them also matter. 
-<<<<<<< Updated upstream
-So I have several considerations, the relationship between the state’s overall COVID-19 statistics with that state’s nursing home data over time, the affection of the positive cases, and deaths of residents and staff. We still want to explore more other factors influencing the health of residents and staffs, such as the vaccination rate, protection equipment. 
-Therefore, we used R to visualize and analyze the relation and the impact of these factors according to the Nursing House dataset.
-=======
+During the covid-19 pandemic, we need to pay more attention to the nursing house since they are filled with the olds who also belong to high-risk groups. The olds are more sensitive to the COVID-19 and have a higher rate of severe symptoms and deaths. Also, residents in nursing homes usually have some disabilities or other special care needs. The health conditions of staff who have close contact with them also matter. 
 
-So I have several considerations, the relationship between the state’s overall COVID-19 statistics with that state’s nursing home data over time, the affection of the positive cases, and deaths of residents and staff. We still want to explore more other factors influencing the health of residents and staffs, such as the vaccination rate, protection equipment. 
-
-Therefore, we used R to visualize and analyze the relation and the impact of these factors according to the Nursing House dataset.
->>>>>>> Stashed changes
+So in this project we want to acquire some meaningful insights such as the relationship between the state’s overall COVID-19 statistics with that state’s nursing home data over time, the affection of the positive cases, and deaths of residents and staff. We still want to explore more other factors influencing the health of residents and staffs, such as the vaccination rate, protection equipment. Therefore, we used R to visualize and analyze the relation and the impact of these factors according to the Nursing House dataset.
