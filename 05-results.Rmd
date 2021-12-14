@@ -190,9 +190,9 @@ p$layers <- c(p$layers[[2]], p$layers[[1]], p$layers[[3]])
 p
 ```
 
-For bed occupation rates, we assume that there could be underlying reasons that can explain this possibly counter-intuitive phenomon at the current stage. By introducing an additional dataset on NH ratings, this new biplot shows that bed occupation rates are correlated with the overall ratings for nursing homes. People could be voting via their choices. Good nursing homes may also do better in epidemic prevention. Therefore, high bed occupation rates are not necessarily related to high COVID-19 confirmation rates and could possibly suggest the opposite way. From another perspective, it is important to do a comprehensive survey before choosing a nursing home.
+For bed occupation rates, we assume that there could be underlying reasons that can explain this possibly counter-intuitive phenomenon at the current stage. By introducing an additional dataset on NH ratings, this new biplot shows that bed occupation rates are correlated with the overall ratings for nursing homes. People could be voting via their choices. Good nursing homes may also do better in epidemic prevention. Therefore, high bed occupation rates are not necessarily related to high COVID-19 confirmation rates and could possibly suggest the opposite way. From another perspective, it is important to do a comprehensive survey before choosing a nursing home.
 
-```{R,fig.width=10,fig.height=4,echo=FALSE}
+```{R,fig.width=10,fig.height=8,echo=FALSE}
 # bed rate for confirmed cases (time series)
 group_total[1,8] = 6000
 library(cowplot)
@@ -208,7 +208,11 @@ iris2 <- ggplot(group_total, aes(x = Week.Ending)) +
   ggtitle("Weekly Increase Cases v.s Time") +
   theme_ipsum(axis_title_size = 15) + 
   theme(legend.position="bottom", legend.text = element_text(size = 18), axis.text.x = element_text(angle = 45, size = 6), axis.text.y = element_text(size = 15), axis.title = element_text(size = 25))
-plot_grid(iris1, iris2, labels = "AUTO")
+
+#plot_grid(iris1, iris2, labels = "AUTO")
+library(patchwork)
+iris1 + iris2 + 
+    plot_layout(ncol = 1, nrow = 2, widths = c(2,2), heights = c(4,4))
 ```
 
 During the peak of the pandemic in 2020, the reason might again be different.  It probably because as the weekly increases cases and risk of the infection become larger and larger, more residents tend to leave nursing house and go back home for safety. And when weekly increases cases become smaller and the application of vaccines, most residents choose to return to nursing houses. That explains why when weekly increases cases reached its maximum on January 2021, the occupancy rate of nursing houses dropped to its minimum, when most residents have left.
@@ -250,7 +254,7 @@ p4 <- ggplot(hand, aes(x=Week.Ending,y=n, fill=Any.Current.Supply.of.Hand.Saniti
 plot_grid(p1,p2,p3,p4, labels = "AUTO")
 ```
 
-Here we could see the condition of PPE supply of nursing houses across the U.S. The data provides six dates when it did the survey about the PPE supply. On 2020-05-24, we can notice that a great ratio of nursing houses of the U.S had the shortages for all four types of PPE. On 2020-07-19, the shortage of hand sanitizers was firstly solved and after that, the ratio of nursing houses which have shortage of hand sanitizers was always at a low level. However, the shortages of the other three PPE were serious unlike the hand sanitizer. The shortage of surgerical masks and eye protections lasted till 2020-12-20, when the ratio had decreased to a relatively low value. It means that the shortage nearly lasted half a year, which explained the uncontrolled increase of resident cases happened in the second half of 2021. The most serious shortage was the shortage of N95 masks. The shortage ratio of the first four surveies was really high. The shortage ratio only dropped to a satisfying level on 2021-02-28, but still higher than the ratio of the other three types of PPE. 
+Next we will look at pandemic prevention equipment (PPE) supply in nursing houses across the U.S. These plots show a general view from six selected dates. On 2020-05-24, we can notice that greater ratios of nursing houses of the U.S had the shortages for all four types of PPE. On 2020-07-19, the shortage for hand sanitizers was firstly solved and after that, this ratio has been stay at a low level. However, shortage for surgical masks, N95 masks and eye protections lasted till 2020-12-20, when the ratio began decreasing to a relatively low value and the shortage for N95 masks is the most serious. It means these shortages lasted nearly for half a year, which corresponded to the increase of resident cases in the second half of 2020. Fortunately, the shortage ratios dropped to a satisfying level on 2021-02-28.
 
 ```{R,fig.width=12,fig.height=6,echo=FALSE}
 ggplot(covid_case, aes(x=Week.Ending)) + 
